@@ -1,4 +1,4 @@
-seoulpm-advent-calendar-popular
-===============================
+Mojolicious-Bootstrap-Lite
+==========================
 
-Seoupm Advent Calendat Popular Articles
+Mojolicious::Lite application using Twitter Bootstrap framework

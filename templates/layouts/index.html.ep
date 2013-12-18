@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                <meta charset="utf-8">
+                <title><%= title %></title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta name="description" content="<%= $self->config->{app}->{description} %>">
+                <meta name="author" content="<%= $self->config->{app}->{author} %>">
+
+                <!-- Le styles -->
+                <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+                <link href="/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+                <style type="text/css">
+                        body {
+                                padding-top: 60px;
+                                padding-bottom: 40px;
+                        }
+                </style>
+
+                <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+                <!--[if lt IE 9]>
+                <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+                <![endif]-->
+
+                <!-- Le fav and touch icons -->
+                <link rel="shortcut icon" href="/bootstrap/ico/favicon.ico">
+                <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bootstrap/ico/cloud-144x144.png">
+                <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bootstrap/ico/cloud-114x114.png">
+                <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bootstrap/ico/cloud-72x72.png">
+                <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/bootstrap/ico/cloud-57x57.png">
+
+                % if ( defined($self->config->{google_analytics_code} ) ){
+                <script type="text/javascript">
+                        var _gaq = _gaq || [];
+                _gaq.push(['_setAccount', '<%= $self->config->{google_analytics_code}; %>']);
+                _gaq.push(['_trackPageview']);
+
+                (function() {
+                 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                 })();
+                </script>
+                %}
+        </head>
+
+        <body>
+
+                <div class="navbar navbar-fixed-top">
+                        <div class="navbar-inner">
+                                <div class="container">
+                                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                        </a>
+                                        <a class="brand" href="#">Perl Advent Calandar</a>
+                                        <div class="nav-collapse">
+                                                <ul class="nav">
+                                                        <li class="active"><a href="#">Home</a></li>
+                                                        <li><a href="#about">About</a></li>
+                                                        <li><a href="#contact">Contact</a></li>
+                                                </ul>
+                                        </div><!--/.nav-collapse -->
+                                </div>
+                        </div>
+                </div>
+
+                <div class="container"><!-- MARKETING LINE-->
+                        <div class="row-fluid">
+                                <div class="well">
+                                        <div class="row-fluid">
+                                                <div class="span8">
+                                                        <p class="lead ">
+
+                                                        Seoulpm Perl Advent Calandar Articles.
+                                                        </p>
+                                                </div>
+                                                <div class="span4">
+                                                        <a class="btn btn-large btn-danger btn-block" href="http://perl.kr" target="_blank">Perl.kr</a>
+
+                                                </div>
+
+                                        </div>
+                                </div>
+                        </div>
+                        <!-- /MARKETING LINE--></div>
+
+                <hr>
+                <div class="container">
+                        <div class="page-header">
+                                <h1>2010 ~ 2013 Seoulpm Perl Advent Calandar Popular Articles Collection</h1>
+                        </div>
+                        <div id="myCarousel2" class="carousel slide">
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+
+                                        <div class="item active">
+                                                <div class="row text-center">
+                                                        <!-- ITEM-->
+                                                        <div class="span3">
+                                                                <div class="thumbnail product-item">
+                                                                        <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
+                                                                </div>
+                                                                <h3>Product name</h3>
+                                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                        </div>
+                                                        <!-- ITEM-->
+
+                                                        <!-- ITEM-->
+                                                        <div class="span3">
+                                                                <div class="thumbnail product-item">
+                                                                        <a href="#"><img src="http://www.sitediscount.ru/flatscroller/images/flatphone.png"></a>
+                                                                </div>
+                                                                <h3>Product name</h3>
+                                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                        </div>
+                                                        <!-- ITEM-->
+
+                                                        <!-- ITEM-->
+                                                        <div class="span3">
+                                                                <div class="thumbnail product-item">
+                                                                        <a href="#"><img src="http://www.sitediscount.ru/flatscroller/images/flatphone.png"></a>
+                                                                </div>
+                                                                <h3>Product name</h3>
+                                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                        </div>
+                                                        <!-- ITEM-->
+
+                                                        <!-- ITEM-->
+                                                        <div class="span3">
+                                                                <div class="thumbnail product-item">
+                                                                        <a href="#"><img src="http://www.sitediscount.ru/flatscroller/images/flatphone.png"></a>
+                                                                </div>
+                                                                <h3>Product name</h3>
+                                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                        </div>
+                                                        <!-- ITEM-->
+                                                </div>
+                                        </div>
+
+                                        <div class="item">
+                                                <div class="row text-center">
+                                                        <!-- ITEM-->
+                                                        <div class="span3">
+                                                                <div class="thumbnail product-item">
+                                                                        <a href="#"><img src="http://www.sitediscount.ru/flatscroller/images/flatphone.png"></a>
+                                                                </div>
+                                                                <h3>Product name</h3>
+                                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                        </div>
+                                                        <!-- ITEM-->
+
+                                                        <!-- ITEM-->
+                                                        <div class="span3">
+                                                                <div class="thumbnail product-item">
+                                                                        <a href="#"><img src="http://www.sitediscount.ru/flatscroller/images/flatphone.png"></a>
+                                                                </div>
+                                                                <h3>Product name</h3>
+                                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                        </div>
+                                                        <!-- ITEM-->
+
+                                                        <!-- ITEM-->
+                                                        <div class="span3">
+                                                                <div class="thumbnail product-item">
+                                                                        <a href="#"><img src="http://www.sitediscount.ru/flatscroller/images/flatphone.png"></a>
+                                                                </div>
+                                                                <h3>Product name</h3>
+                                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                        </div>
+                                                        <!-- ITEM-->
+
+                                                        <!-- ITEM-->
+                                                        <div class="span3">
+                                                                <div class="thumbnail product-item">
+                                                                        <a href="#"><img src="http://www.sitediscount.ru/flatscroller/images/flatphone.png"></a>
+                                                                </div>
+                                                                <h3>Product name</h3>
+                                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                        </div>
+                                                        <!-- ITEM-->
+                                                </div>
+                                        </div>
+                                </div><!-- /INNER-->  
+                                <!-- Carousel nav -->
+                                <a class="carousel-control left" href="#myCarousel2" data-slide="prev"><i class="icon-chevron-left"></i></a>
+                                <a class="carousel-control right" href="#myCarousel2" data-slide="next"><i class="icon-chevron-right"></i></a>        
+                        </div>
+
+                        <footer>
+                        <p>&copy; newbcode | seloulpm  2013</p>
+                        </footer>
+
+                </div><!-- /CONTAINER -->
+                <!-- Le javascript
+                ================================================== -->
+                <!-- Placed at the end of the document so the pages load faster -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.3/bootstrap.min.js"></script>
+
+</body></html>

@@ -1,0 +1,11 @@
+% layout 'index';
+% title 'Perl_Advent_Popular';
+
+<div class="span3">
+<div class="thumbnail product-item">
+<a href="#"><img src="<%= $config->{app}->{img}%>" /></a>
+</div>
+<h3>Product name</h3>
+<p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+</div>
+
