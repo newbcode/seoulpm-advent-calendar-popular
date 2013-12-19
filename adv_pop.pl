@@ -139,4 +139,6 @@ get '/' => sub {
 
 } => 'index';
 
+get '/rank' =>  'rank';
+
 app->start;
