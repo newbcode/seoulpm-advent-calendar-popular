@@ -1,4 +1,11 @@
 #!/usr/bin/env perl
+
+use utf8;
+use DBI;
+use Encode qw(encode decode);
+use DateTime;
+use LWP::UserAgent;
+
 use Mojolicious::Lite;
 
 # Documentation browser under "/perldoc"
@@ -6,90 +13,130 @@ plugin 'PODRenderer';
 
 my $config = plugin 'Config';
 
-get '/' =>  'index';
+my $DBH = DBI->connect (
+    'dbi:mysql:Advpop',
+    "$ENV{ADV_DB_ID}",
+    "$ENV{ADV_DB_PW}",
+    {
+        RaiseError        => 1,
+        AutoCommit        => 1,
+        mysql_enable_utf8 => 1,
+    },
+);
+
+my @top_tens;
+my $cnt = 1;
+my $year = '2011';
+my %adv_data = adv_cal($year);
+
+foreach my $p ( keys %adv_data ) {
+    push @top_tens, $adv_data{$p};
+}
+
+@top_tens = sort { $b->[4] <=> $a->[4] } @top_tens;
+
+foreach my $rank_p ( @top_tens ) {
+    my ($title, $author, $url) = title_parser($rank_p->[0], $cnt);
+    
+    my $sth = $DBH->prepare(qq{
+            INSERT INTO `advtop` (`author`, `title`, `url`, `likesum`) VALUES (?,?,?,?)
+    });
+
+    $sth->execute( $author, $title, $url, $rank_p->[4] );
+    last if ($cnt == 8);
+    $cnt++;
+}
+
+sub adv_cal {
+    my $year = shift;
+    my $ua = LWP::UserAgent->new;
+
+    my $fb_api_url ='http://api.facebook.com/restserver.php?method=links.getStats&urls=';
+    my $url_year = "http://advent.perl.kr/$year/$year-12-";
+    my $start_num = 1;
+    my ($url_gen, $adv_info, @urls);
+
+    while ( $start_num <= 24 ) {
+        if ( $start_num < 10 ) {
+            $url_gen = "$fb_api_url$url_year"."0"."$start_num"."\.html";
+        }
+        else {
+            $url_gen = "$fb_api_url$url_year$start_num"."\.html";
+            push @urls, $url_gen;
+        }
+        $start_num++;
+    }
+
+    my %adv_infos;
+    foreach my $url (@urls) {
+        my ( $argv_url, $share, $like, $comment, $total, $rank);
+        my $response = $ua->get($url);
+
+        if ($response->is_success) {
+
+            my $likes =  $response->decoded_content;
+
+            if ( $likes =~ /<url>(.+)<\/url>/ ) { $argv_url = $1; }
+            if ( $likes =~ /<share_count>(\d+)<\/share_count>/ ) { $share = $1; }
+            if ( $likes =~ /<like_count>(\d+)<\/like_count>/ ) { $like = $1; }
+            if ( $likes =~ /<comment_count>(\d+)<\/comment_count>/ ) { $comment = $1; }
+            if ( $likes =~ /<total_count>(\d+)<\/total_count>/ ) { $total = $1; }
+
+            # %adv_infos 익명해쉬 생성후 배열 레퍼런스를 사용하여 \@array 형태로 자료 구조를 만든다.
+            push @{ $adv_infos{$argv_url} ||= [] }, ($argv_url, $share, $like, $comment, $total);
+        }
+        else {
+            die $response->status_line;
+        }
+    }
+    return %adv_infos;
+}
+
+sub title_parser {
+    my ($url, $rank_num) = @_; 
+
+    my $ua = LWP::UserAgent->new;
+    my $resp = $ua->get($url);
+    
+    my ($title, $author);
+
+    if ($resp->is_success) {
+        my $decode_body =  $resp->decoded_content;
+        if ( $decode_body =~ /<title>(.+)<\/title>/ ) { 
+            $title = "$rank_num. " . "$1"; 
+            $title =~ s/\|.*//g;
+        }
+        if ( $decode_body =~ /<p><a href=".*?">(.*?)<\/a>/ ) { 
+            $author = $1; 
+        }
+        return ($title, $author, $url);
+    }
+    else {
+        die $resp->status_line;
+    }
+}
+
+get '/' => sub {
+    my $self = shift;
+    
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM advtop });
+    $sth->execute();
+
+    my %articles;
+    while ( my @row = $sth->fetchrow_array ) {
+        my ( $id, $author, $title, $url, $likesum, $date ) = @row;
+        my ( $wdate ) = split / /, $date;
+        
+        $articles{$id} = {
+            author  => $author,
+            title   => $title,
+            url     => $url,
+            likesun => $likesum,
+            wdate   => $wdate,
+        };
+    }
+    $self->stash( articles => \%articles );
+
+} => 'index';
 
 app->start;
-
-__DATA__
-
-@@ layouts/default.html.ep
-<!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <title><%= title %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<%= $self->config->{app}->{description} %>">
-    <meta name="author" content="<%= $self->config->{app}->{author} %>">
-
-    <!-- Le styles -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/bootstrap/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bootstrap/ico/cloud-144x144.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bootstrap/ico/cloud-114x114.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bootstrap/ico/cloud-72x72.png">
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/bootstrap/ico/cloud-57x57.png">
-
-% if ( defined($self->config->{google_analytics_code} ) ){
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', '<%= $self->config->{google_analytics_code}; %>']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-%}
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">Project name</a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-<%= content %>
-    </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.3/bootstrap.min.js"></script>
-
-</body></html>
-

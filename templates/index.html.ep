@@ -1,11 +1,103 @@
 % layout 'index';
 % title 'Perl_Advent_Popular';
 
-<div class="span3">
-<div class="thumbnail product-item">
-<a href="#"><img src="<%= $config->{app}->{img}%>" /></a>
-</div>
-<h3>Product name</h3>
-<p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
-</div>
+<div class="container">
+        <div class="page-header">
+                <h1>2010 ~ 2013 Seoulpm Perl Advent Calandar Popular Articles Collection</h1>
+        </div>
+        <div id="myCarousel2" class="carousel slide">
+                <!-- Carousel items -->
+                <div class="carousel-inner">
 
+                        <div class="item active">
+                                <div class="row text-center">
+                                        <!-- ITEM-->
+                                        <div class="span3">
+                                                <div class="thumbnail product-item">
+                                                        <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
+                                                </div>
+                                                <h3><%= $articles->{1}{title} %></h3>
+                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                        </div>
+                                        <!-- ITEM-->
+
+                                        <!-- ITEM-->
+                                        <div class="span3">
+                                                <div class="thumbnail product-item">
+                                                        <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
+                                                </div>
+                                                <h3>Product name</h3>
+                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                        </div>
+                                        <!-- ITEM-->
+
+                                        <!-- ITEM-->
+                                        <div class="span3">
+                                                <div class="thumbnail product-item">
+                                                        <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
+                                                </div>
+                                                <h3>Product name</h3>
+                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                        </div>
+                                        <!-- ITEM-->
+
+                                        <!-- ITEM-->
+                                        <div class="span3">
+                                                <div class="thumbnail product-item">
+                                                        <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
+                                                </div>
+                                                <h3>Product name</h3>
+                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                        </div>
+                                        <!-- ITEM-->
+                                </div>
+                        </div>
+
+                        <div class="item">
+                                <div class="row text-center">
+                                        <!-- ITEM-->
+                                        <div class="span3">
+                                                <div class="thumbnail product-item">
+                                                        <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
+                                                </div>
+                                                <h3>Product name</h3>
+                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                        </div>
+                                        <!-- ITEM-->
+
+                                        <!-- ITEM-->
+                                        <div class="span3">
+                                                <div class="thumbnail product-item">
+                                                        <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
+                                                </div>
+                                                <h3>Product name</h3>
+                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                        </div>
+                                        <!-- ITEM-->
+
+                                        <!-- ITEM-->
+                                        <div class="span3">
+                                                <div class="thumbnail product-item">
+                                                        <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
+                                                </div>
+                                                <h3>Product name</h3>
+                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                        </div>
+                                        <!-- ITEM-->
+
+                                        <!-- ITEM-->
+                                        <div class="span3">
+                                                <div class="thumbnail product-item">
+                                                        <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
+                                                </div>
+                                                <h3>Product name</h3>
+                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                        </div>
+                                        <!-- ITEM-->
+                                </div>
+                        </div>
+                </div><!-- /INNER-->  
+                <!-- Carousel nav -->
+                <a class="carousel-control left" href="#myCarousel2" data-slide="prev"><i class="icon-chevron-left"></i></a>
+                <a class="carousel-control right" href="#myCarousel2" data-slide="next"><i class="icon-chevron-right"></i></a>        
+        </div>
