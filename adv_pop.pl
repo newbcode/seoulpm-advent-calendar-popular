@@ -25,27 +25,36 @@ my $DBH = DBI->connect (
     },
 );
 
-my @top_tens;
-my $cnt = 1;
-my $year = '2010';
-my %adv_data = adv_cal($year);
+my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM advtop });
+$sth->execute();
+my @row = $sth->fetchrow_array;
 
-foreach my $p ( keys %adv_data ) {
-    push @top_tens, $adv_data{$p};
+if ( @row ){
+    print "No Data\n";
 }
+else {
+    my @top_tens;
+    my $cnt = 1;
+    my $year = '2010';
+    my %adv_data = adv_cal($year);
 
-@top_tens = sort { $b->[4] <=> $a->[4] } @top_tens;
+    foreach my $p ( keys %adv_data ) {
+        push @top_tens, $adv_data{$p};
+    }
 
-foreach my $rank_p ( @top_tens ) {
-    my ($title, $author, $url) = title_parser($rank_p->[0], $cnt);
-    
-    my $sth = $DBH->prepare(qq{
-            INSERT INTO `advtop` (`author`, `title`, `url`, `likesum`) VALUES (?,?,?,?)
-    });
+    @top_tens = sort { $b->[4] <=> $a->[4] } @top_tens;
 
-    $sth->execute( $author, $title, $url, $rank_p->[4] );
-    last if ($cnt == 23);
-    $cnt++;
+    foreach my $rank_p ( @top_tens ) {
+        my ($title, $author, $url) = title_parser($rank_p->[0], $cnt);
+        
+        my $sth = $DBH->prepare(qq{
+                INSERT INTO `advtop` (`author`, `title`, `url`, `likesum`) VALUES (?,?,?,?)
+        });
+
+        $sth->execute( $author, $title, $url, $rank_p->[4] );
+        last if ($cnt == 23);
+        $cnt++;
+    }
 }
 
 sub adv_cal {
@@ -91,7 +100,6 @@ sub adv_cal {
             die $response->status_line;
         }
     }
-    p %adv_infos;
     return %adv_infos;
 }
 
