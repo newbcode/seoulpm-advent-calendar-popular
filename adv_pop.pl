@@ -5,6 +5,7 @@ use DBI;
 use Encode qw(encode decode);
 use DateTime;
 use LWP::UserAgent;
+use Data::Printer;
 
 use Mojolicious::Lite;
 
@@ -26,7 +27,7 @@ my $DBH = DBI->connect (
 
 my @top_tens;
 my $cnt = 1;
-my $year = '2011';
+my $year = '2010';
 my %adv_data = adv_cal($year);
 
 foreach my $p ( keys %adv_data ) {
@@ -43,7 +44,7 @@ foreach my $rank_p ( @top_tens ) {
     });
 
     $sth->execute( $author, $title, $url, $rank_p->[4] );
-    last if ($cnt == 8);
+    last if ($cnt == 23);
     $cnt++;
 }
 
@@ -59,6 +60,7 @@ sub adv_cal {
     while ( $start_num <= 24 ) {
         if ( $start_num < 10 ) {
             $url_gen = "$fb_api_url$url_year"."0"."$start_num"."\.html";
+            push @urls, $url_gen;
         }
         else {
             $url_gen = "$fb_api_url$url_year$start_num"."\.html";
@@ -89,6 +91,7 @@ sub adv_cal {
             die $response->status_line;
         }
     }
+    p %adv_infos;
     return %adv_infos;
 }
 
@@ -102,6 +105,7 @@ sub title_parser {
 
     if ($resp->is_success) {
         my $decode_body =  $resp->decoded_content;
+
         if ( $decode_body =~ /<title>(.+)<\/title>/ ) { 
             $title = "$rank_num. " . "$1"; 
             $title =~ s/\|.*//g;
