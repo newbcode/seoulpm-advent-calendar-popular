@@ -68,26 +68,6 @@
                         </div>
                 </div>
 
-                <div class="container"><!-- MARKETING LINE-->
-                        <div class="row-fluid">
-                                <div class="well">
-                                        <div class="row-fluid">
-                                                <div class="span8">
-                                                        <p class="lead ">
-
-                                                        Seoulpm Perl Advent Calandar Articles.
-                                                        </p>
-                                                </div>
-                                                <div class="span4">
-                                                        <a class="btn btn-large btn-danger btn-block" href="/rank" target="_blank">Seoulpm Advent Canlandar Ranking</a>
-
-                                                </div>
-
-                                        </div>
-                                </div>
-                        </div>
-                        <!-- /MARKETING LINE--></div>
-
                 <hr>
                 <%= content %>
                 <hr>

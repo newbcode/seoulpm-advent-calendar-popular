@@ -1,8 +1,29 @@
 % layout 'index';
 % title 'rank page';
 
-        <div class="container">
+<div class="container"><!-- MARKETING LINE-->
+                        <div class="row-fluid">
+                                <div class="well">
+                                        <div class="row-fluid">
+                                                <div class="span8">
+                                                <div class="span3">
+						<a class="btn btn-large btn-primary btn-block" href="/rank_2010" target="_blank">2010 Seoulpm Advent Canlandar</a>
+                                                </div>
+						<div class="span3">
+						<a class="btn btn-large btn-primary btn-block" href="/rank_2011" target="_blank">2011 Seoulpm Advent Canlandar</a>
+                                                </div>
+						<div class="span3">
+						<a class="btn btn-large btn-primary btn-block" href="/rank_2012" target="_blank">2012 Seoulpm Advent Canlandar</a>
+                                                </div>
+						<div class="span3">
+						<a class="btn btn-large btn-primary btn-block" href="/rank_2013" target="_blank">2013 Seoulpm Advent Canlandar</a>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                        <!-- /MARKETING LINE--></div>
 
+        <div class="container">
                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
                         <thead>
                                 <tr>
@@ -17,7 +38,7 @@
                                 <tr class="odd gradeX">
                                   % foreach my $id ( keys %$articles ) {
                                         <td><%= $id %></td>
-                                        <td><%= $articles->{$id}{title} %></td>
+                                        <td><a href="<%= $articles->{$id}{url} %>"><%= $articles->{$id}{title} %></a></td>
                                         <td><%= $articles->{$id}{author} %></td>
                                         <td><%= $articles->{$id}{year} %></td>
                                         <td><%= $articles->{$id}{likesum} %></td>

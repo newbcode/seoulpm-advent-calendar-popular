@@ -25,7 +25,7 @@ my $DBH = DBI->connect (
     },
 );
 
-my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM advall });
+my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM adv_2010 });
 $sth->execute();
 my @row = $sth->fetchrow_array;
 
@@ -45,13 +45,12 @@ else {
         }
 
         @top_tens = sort { $b->[4] <=> $a->[4] } @top_tens;
+        my $table = "adv_$year_p";
 
         foreach my $rank_p ( @top_tens ) {
             my ($title, $author, $url) = title_parser($rank_p->[0]);
             
-            my $sth = $DBH->prepare(qq{
-                    INSERT INTO `advall` (`author`, `title`, `url`, `likesum`, `year`) VALUES (?,?,?,?,?)
-            });
+            my $sth = $DBH->prepare(qq{ INSERT INTO `$table` (`author`, `title`, `url`, `likesum`, `year`) VALUES (?,?,?,?,?) });
 
             $sth->execute( $author, $title, $url, $rank_p->[4], $year_p );
             $cnt++;
@@ -146,7 +145,7 @@ sub title_parser {
 get '/' => sub {
     my $self = shift;
     
-    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM advall });
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM adv_2012 });
     $sth->execute();
 
     my %articles;
@@ -167,10 +166,82 @@ get '/' => sub {
 
 } => 'index';
 
-get '/rank' => sub {
+get '/rank_2010' => sub {
     my $self = shift;
     
-    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, year, wdate FROM advall });
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, year, wdate FROM adv_2010 });
+    $sth->execute();
+
+    my %articles;
+    while ( my @row = $sth->fetchrow_array ) {
+        my ( $id, $author, $title, $url, $likesum, $year, $date ) = @row;
+        my ( $wdate ) = split / /, $date;
+        
+        $articles{$id} = {
+            author  => $author,
+            title   => $title,
+            url     => $url,
+            likesum => $likesum,
+            year    => $year,
+            wdate   => $wdate,
+        };
+    }
+    $self->stash( articles => \%articles );
+
+} => 'rank';
+
+get '/rank_2011' => sub {
+    my $self = shift;
+    
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, year, wdate FROM adv_2011 });
+    $sth->execute();
+
+    my %articles;
+    while ( my @row = $sth->fetchrow_array ) {
+        my ( $id, $author, $title, $url, $likesum, $year, $date ) = @row;
+        my ( $wdate ) = split / /, $date;
+        
+        $articles{$id} = {
+            author  => $author,
+            title   => $title,
+            url     => $url,
+            likesum => $likesum,
+            year    => $year,
+            wdate   => $wdate,
+        };
+    }
+    $self->stash( articles => \%articles );
+
+} => 'rank';
+
+get '/rank_2012' => sub {
+    my $self = shift;
+    
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, year, wdate FROM adv_2012 });
+    $sth->execute();
+
+    my %articles;
+    while ( my @row = $sth->fetchrow_array ) {
+        my ( $id, $author, $title, $url, $likesum, $year, $date ) = @row;
+        my ( $wdate ) = split / /, $date;
+        
+        $articles{$id} = {
+            author  => $author,
+            title   => $title,
+            url     => $url,
+            likesum => $likesum,
+            year    => $year,
+            wdate   => $wdate,
+        };
+    }
+    $self->stash( articles => \%articles );
+
+} => 'rank';
+
+get '/rank_2013' => sub {
+    my $self = shift;
+    
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, year, wdate FROM adv_2013 });
     $sth->execute();
 
     my %articles;
