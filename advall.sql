@@ -4,6 +4,7 @@ CREATE TABLE `advall` (
   `title`       VARCHAR(70)      NOT NULL,
   `url`         TEXT             NOT NULL,
   `likesum`     INT(2)           NOT NULL,
+  `year`        INT(2)           NOT NULL,
   `wdate`       TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
  
   PRIMARY KEY (`id`)

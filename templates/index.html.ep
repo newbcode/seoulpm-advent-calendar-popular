@@ -16,8 +16,7 @@
                                                 <div class="thumbnail product-item">
                                                         <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
                                                 </div>
-                                                <h3><%= $articles->{1}{title} %></h3>
-                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                <p><a href="<%= $articles->{1}{url} %>"><h3><%= $articles->{1}{title} %></h3></a></p> 
                                         </div>
                                         <!-- ITEM-->
 
@@ -26,8 +25,7 @@
                                                 <div class="thumbnail product-item">
                                                         <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
                                                 </div>
-                                                <h3>Product name</h3>
-                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                <p><a href="<%= $articles->{2}{url} %>"><h3><%= $articles->{2}{title} %></h3></a></p> 
                                         </div>
                                         <!-- ITEM-->
 
@@ -36,8 +34,7 @@
                                                 <div class="thumbnail product-item">
                                                         <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
                                                 </div>
-                                                <h3>Product name</h3>
-                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                <p><a href="<%= $articles->{3}{url} %>"><h3><%= $articles->{3}{title} %></h3></a></p> 
                                         </div>
                                         <!-- ITEM-->
 
@@ -46,8 +43,7 @@
                                                 <div class="thumbnail product-item">
                                                         <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
                                                 </div>
-                                                <h3>Product name</h3>
-                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                <p><a href="<%= $articles->{4}{url} %>"><h3><%= $articles->{4}{title} %></h3></a></p> 
                                         </div>
                                         <!-- ITEM-->
                                 </div>
@@ -60,8 +56,7 @@
                                                 <div class="thumbnail product-item">
                                                         <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
                                                 </div>
-                                                <h3>Product name</h3>
-                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                <p><a href="<%= $articles->{5}{url} %>"><h3><%= $articles->{5}{title} %></h3></a></p> 
                                         </div>
                                         <!-- ITEM-->
 
@@ -70,8 +65,7 @@
                                                 <div class="thumbnail product-item">
                                                         <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
                                                 </div>
-                                                <h3>Product name</h3>
-                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                <p><a href="<%= $articles->{6}{url} %>"><h3><%= $articles->{6}{title} %></h3></a></p> 
                                         </div>
                                         <!-- ITEM-->
 
@@ -80,8 +74,7 @@
                                                 <div class="thumbnail product-item">
                                                         <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
                                                 </div>
-                                                <h3>Product name</h3>
-                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                <p><a href="<%= $articles->{7}{url} %>"><h3><%= $articles->{7}{title} %></h3></a></p> 
                                         </div>
                                         <!-- ITEM-->
 
@@ -90,8 +83,7 @@
                                                 <div class="thumbnail product-item">
                                                         <a href="#"><img src="<%= $self->config->{app}->{img} %>" ></a>
                                                 </div>
-                                                <h3>Product name</h3>
-                                                <p><a class="btn btn-large btn-block" href="http://www.bootstraptor.com">View details »</a></p> 
+                                                <p><a href="<%= $articles->{8}{url} %>"><h3><%= $articles->{8}{title} %></h3></a></p> 
                                         </div>
                                         <!-- ITEM-->
                                 </div>

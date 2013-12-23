@@ -25,7 +25,7 @@ my $DBH = DBI->connect (
     },
 );
 
-my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM advtop });
+my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM advall });
 $sth->execute();
 my @row = $sth->fetchrow_array;
 
@@ -35,25 +35,30 @@ if ( @row ){
 else {
     my @top_tens;
     my $cnt = 1;
-    my $year = '2010';
-    my %adv_data = adv_cal($year);
+    my @years = qw/2010 2011 2012/;
+    
+    foreach my $year_p ( @years ) {
+        my %adv_data = adv_cal($year_p);
 
-    foreach my $p ( keys %adv_data ) {
-        push @top_tens, $adv_data{$p};
-    }
+        foreach my $p ( keys %adv_data ) {
+            push @top_tens, $adv_data{$p};
+        }
 
-    @top_tens = sort { $b->[4] <=> $a->[4] } @top_tens;
+        # @top_tens = sort { $b->[4] <=> $a->[4] } @top_tens;
 
-    foreach my $rank_p ( @top_tens ) {
-        my ($title, $author, $url) = title_parser($rank_p->[0], $cnt);
-        
-        my $sth = $DBH->prepare(qq{
-                INSERT INTO `advtop` (`author`, `title`, `url`, `likesum`) VALUES (?,?,?,?)
-        });
+        foreach my $rank_p ( @top_tens ) {
+            my ($title, $author, $url) = title_parser($rank_p->[0], $cnt);
+            
+            my $sth = $DBH->prepare(qq{
+                    INSERT INTO `advall` (`author`, `title`, `url`, `likesum`, `year`) VALUES (?,?,?,?,?)
+            });
 
-        $sth->execute( $author, $title, $url, $rank_p->[4] );
-        last if ($cnt == 23);
-        $cnt++;
+            $sth->execute( $author, $title, $url, $rank_p->[4], $year_p );
+            $cnt++;
+            last if ($cnt == 25);
+        }
+    $cnt = 1;
+    @top_tens = ();
     }
 }
 
@@ -109,7 +114,7 @@ sub title_parser {
     my $ua = LWP::UserAgent->new;
     my $resp = $ua->get($url);
     
-    my ($title, $author);
+    my ($title, $author, $before_author);
 
     if ($resp->is_success) {
         my $decode_body =  $resp->decoded_content;
@@ -118,9 +123,20 @@ sub title_parser {
             $title = "$rank_num. " . "$1"; 
             $title =~ s/\|.*//g;
         }
-        if ( $decode_body =~ /<p><a href=".*?">(.*?)<\/a>/ ) { 
-            $author = $1; 
+        if ( $decode_body =~ /<h2>.*?<\/h2>(.*?)<h2.*?<\/h2>/gsm ) { 
+            $before_author = $1;
+
+            if ( $before_author =~ /<p><a href=.*?>(.*?)<\/a>/ ) { 
+                $author = $1;
+            }
+            elsif ( $before_author =~ /<p>(\w+) .*?<\/p>/ ) { 
+                $author = $1;
+            }
+            elsif ( $before_author =~ /<p>(\@owl0908) .*?/) { 
+                $author = $1;
+            }
         }
+
         return ($title, $author, $url);
     }
     else {
@@ -131,12 +147,12 @@ sub title_parser {
 get '/' => sub {
     my $self = shift;
     
-    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM advtop });
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM advall });
     $sth->execute();
 
     my %articles;
     while ( my @row = $sth->fetchrow_array ) {
-        my ( $id, $author, $title, $url, $likesum, $date ) = @row;
+        my ( $id, $author, $title, $url, $likesum, $year, $date ) = @row;
         my ( $wdate ) = split / /, $date;
         
         $articles{$id} = {
@@ -144,6 +160,7 @@ get '/' => sub {
             title   => $title,
             url     => $url,
             likesun => $likesum,
+            year    => $year,
             wdate   => $wdate,
         };
     }
