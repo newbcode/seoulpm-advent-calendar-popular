@@ -44,10 +44,10 @@ else {
             push @top_tens, $adv_data{$p};
         }
 
-        # @top_tens = sort { $b->[4] <=> $a->[4] } @top_tens;
+        @top_tens = sort { $b->[4] <=> $a->[4] } @top_tens;
 
         foreach my $rank_p ( @top_tens ) {
-            my ($title, $author, $url) = title_parser($rank_p->[0], $cnt);
+            my ($title, $author, $url) = title_parser($rank_p->[0]);
             
             my $sth = $DBH->prepare(qq{
                     INSERT INTO `advall` (`author`, `title`, `url`, `likesum`, `year`) VALUES (?,?,?,?,?)
@@ -57,7 +57,6 @@ else {
             $cnt++;
             last if ($cnt == 25);
         }
-    $cnt = 1;
     @top_tens = ();
     }
 }
@@ -109,7 +108,7 @@ sub adv_cal {
 }
 
 sub title_parser {
-    my ($url, $rank_num) = @_; 
+    my $url = shift; 
 
     my $ua = LWP::UserAgent->new;
     my $resp = $ua->get($url);
@@ -120,7 +119,7 @@ sub title_parser {
         my $decode_body =  $resp->decoded_content;
 
         if ( $decode_body =~ /<title>(.+)<\/title>/ ) { 
-            $title = "$rank_num. " . "$1"; 
+            $title = $1; 
             $title =~ s/\|.*//g;
         }
         if ( $decode_body =~ /<h2>.*?<\/h2>(.*?)<h2.*?<\/h2>/gsm ) { 
@@ -152,8 +151,8 @@ get '/' => sub {
 
     my %articles;
     while ( my @row = $sth->fetchrow_array ) {
-        my ( $id, $author, $title, $url, $likesum, $year, $date ) = @row;
-        my ( $wdate ) = split / /, $date;
+        my ( $id, $author, $title, $url, $likesum, $year, $wdate ) = @row;
+        #my ( $wdate ) = split / /, $date;
         
         $articles{$id} = {
             author  => $author,
@@ -168,6 +167,28 @@ get '/' => sub {
 
 } => 'index';
 
-get '/rank' =>  'rank';
+get '/rank' => sub {
+    my $self = shift;
+    
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, year, wdate FROM advall });
+    $sth->execute();
+
+    my %articles;
+    while ( my @row = $sth->fetchrow_array ) {
+        my ( $id, $author, $title, $url, $likesum, $year, $date ) = @row;
+        my ( $wdate ) = split / /, $date;
+        
+        $articles{$id} = {
+            author  => $author,
+            title   => $title,
+            url     => $url,
+            likesum => $likesum,
+            year    => $year,
+            wdate   => $wdate,
+        };
+    }
+    $self->stash( articles => \%articles );
+
+} => 'rank';
 
 app->start;
