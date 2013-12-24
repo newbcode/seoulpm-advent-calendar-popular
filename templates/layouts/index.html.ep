@@ -59,8 +59,9 @@
                                         <a class="brand" href="/">Perl Advent Calandar</a>
                                         <div class="nav-collapse">
                                                 <ul class="nav">
-                                                        <li class="active"><a href="#">Home</a></li>
-                                                        <li><a href="#about">About</a></li>
+                                                        <li class="active"><a href="/">Home</a></li>
+                                                        <li><a href="/rank_2010">Ranking</a></li>
+                                                        <li><a href="#contact">Summary</a></li>
                                                         <li><a href="#contact">Contact</a></li>
                                                 </ul>
                                         </div><!--/.nav-collapse -->

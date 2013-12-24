@@ -3,6 +3,7 @@ CREATE TABLE `adv_2010` (
   `author`      VARCHAR(20)      NOT NULL DEFAULT '',
   `title`       VARCHAR(70)      NOT NULL,
   `url`         TEXT             NOT NULL,
+  `abst`        TEXT             NOT NULL,
   `likesum`     INT(2)           NOT NULL,
   `year`        INT(2)           NOT NULL,
   `wdate`       TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
