@@ -280,18 +280,19 @@ get '/rank_2013' => sub {
 get '/summary' => sub {
     my $self = shift;
     
-    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, year, wdate FROM adv_2013 });
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, abst, likesum, year, wdate FROM adv_2013 });
     $sth->execute();
 
     my %articles;
     while ( my @row = $sth->fetchrow_array ) {
-        my ( $id, $author, $title, $url, $likesum, $year, $date ) = @row;
+        my ( $id, $author, $title, $url, $abst, $likesum, $year, $date ) = @row;
         my ( $wdate ) = split / /, $date;
         
         $articles{$id} = {
             author  => $author,
             title   => $title,
             url     => $url,
+            abst    => $abst,
             likesum => $likesum,
             year    => $year,
             wdate   => $wdate,
@@ -299,7 +300,7 @@ get '/summary' => sub {
     }
     $self->stash( articles => \%articles );
 
-} => 'rank';
+} => 'summary';
 
 
 app->start;
