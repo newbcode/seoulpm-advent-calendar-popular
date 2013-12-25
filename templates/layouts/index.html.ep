@@ -60,7 +60,7 @@
                                         <div class="nav-collapse">
                                                 <ul class="nav">
                                                         <li class="active"><a href="/">Home</a></li>
-                                                        <li><a href="/rank_2013">Ranking</a></li>
+                                                        <li><a href="/rank/2013">Ranking</a></li>
                                                         <li><a href="/summary">Summary</a></li>
                                                         <li><a href="#contact">Contact</a></li>
                                                 </ul>
