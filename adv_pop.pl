@@ -64,26 +64,8 @@ else {
 get '/' => sub {
     my $self = shift;
     
-    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM adv_2013 });
-    $sth->execute();
-
-    my %articles;
-    while ( my @row = $sth->fetchrow_array ) {
-        my ( $id, $author, $title, $url, $likesum, $year, $wdate ) = @row;
-        #my ( $wdate ) = split / /, $date;
-        
-        $articles{$id} = {
-            author  => $author,
-            title   => $title,
-            url     => $url,
-            likesum => $likesum,
-            year    => $year,
-            wdate   => $wdate,
-        };
-    }
-    $self->stash( articles => \%articles );
-
-} => 'index';
+    $self->redirect_to( $self->url_for('/advpop/2013'));
+} => 'advpop';
 
 get '/advpop/:year' => sub {
     my $self = shift;
@@ -102,13 +84,13 @@ get '/advpop/:year' => sub {
             title   => $title,
             url     => $url,
             likesum => $likesum,
-            year    => $year,
+            year    => $input_year,
             wdate   => $wdate,
         };
     }
-    $self->stash( articles => \%articles );
+    $self->stash( articles => \%articles, input_year => $input_year );
 
-} => 'index';
+} => 'advpop';
 
 get '/rank/:year' => sub {
     my $self = shift;
@@ -135,10 +117,11 @@ get '/rank/:year' => sub {
 
 } => 'rank';
 
-get '/summary' => sub {
+get '/summary/:year' => sub {
     my $self = shift;
+    my $input_year = $self->param('year');
     
-    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, abst, likesum, year, wdate FROM adv_2013 });
+    my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, abst, likesum, year, wdate FROM adv_$input_year });
     $sth->execute();
 
     my %articles;
