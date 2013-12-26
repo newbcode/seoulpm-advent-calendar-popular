@@ -12,35 +12,35 @@
                         <div class="row-fluid">
                                 <div class="span8">
                                         <div class="span3">
-                                                % if ( $articles->{1}{year} eq '2010' ) {
-                                                <a class="btn btn-large btn-primary btn-block" href="/advpop/2010" target="_blank">2010 Seoulpm Advent Canlandar</a>
+                                                % if ( $articles->{1}{year} eq '2013' ) {
+                                                <a class="btn btn-large btn-success btn-block" href="/advpop/2013" target="_blank">2013 Seoulpm Advent Canlandar</a>
                                                 %}
                                                 % else {
-                                                <a class="btn btn-large btn-default btn-block" href="/advpop/2010" target="_blank">2010 Seoulpm Advent Canlandar</a>
-                                                %}
-                                        </div>
-                                        <div class="span3">
-                                                % if ( $articles->{1}{year} eq '2011' ) {
-                                                <a class="btn btn-large btn-primary btn-block" href="/advpop/2011" target="_blank">2011 Seoulpm Advent Canlandar</a>
-                                                %}
-                                                % else {
-                                                <a class="btn btn-large btn-default btn-block" href="/advpop/2011" target="_blank">2011 Seoulpm Advent Canlandar</a>
+                                                <a class="btn btn-large btn-default btn-block" href="/advpop/2013" target="_blank">2013 Seoulpm Advent Canlandar</a>
                                                 %}
                                         </div>
                                         <div class="span3">
                                                 % if ( $articles->{1}{year} eq '2012' ) {
-                                                <a class="btn btn-large btn-primary btn-block" href="/advpop/2012" target="_blank">2012 Seoulpm Advent Canlandar</a>
+                                                <a class="btn btn-large btn-success btn-block" href="/advpop/2012" target="_blank">2012 Seoulpm Advent Canlandar</a>
                                                 %}
                                                 % else {
                                                 <a class="btn btn-large btn-default btn-block" href="/advpop/2012" target="_blank">2012 Seoulpm Advent Canlandar</a>
                                                 %}
                                         </div>
                                         <div class="span3">
-                                                % if ( $articles->{1}{year} eq '2013' ) {
-                                                <a class="btn btn-large btn-primary btn-block" href="/advpop/2013" target="_blank">2013 Seoulpm Advent Canlandar</a>
+                                                % if ( $articles->{1}{year} eq '2011' ) {
+                                                <a class="btn btn-large btn-success btn-block" href="/advpop/2011" target="_blank">2011 Seoulpm Advent Canlandar</a>
+                                                %}
+                                                % else {
+                                                <a class="btn btn-large btn-default btn-block" href="/advpop/2011" target="_blank">2011 Seoulpm Advent Canlandar</a>
+                                                %}
+                                        </div>
+                                        <div class="span3">
+                                                % if ( $articles->{1}{year} eq '2010' ) {
+                                                <a class="btn btn-large btn-success btn-block" href="/advpop/2010" target="_blank">2010 Seoulpm Advent Canlandar</a>
                                                 %}
                                                 %else {
-                                                <a class="btn btn-large btn-default btn-block" href="/advpop/2013" target="_blank">2013 Seoulpm Advent Canlandar</a>
+                                                <a class="btn btn-large btn-default btn-block" href="/advpop/2010" target="_blank">2010 Seoulpm Advent Canlandar</a>
                                                 %}
 
 

@@ -60,9 +60,9 @@
                                         <div class="nav-collapse">
                                                 <ul class="nav">
                                                         <li class="active"><a href="/">Home</a></li>
-                                                        <li><a href="/rank/2013">Ranking</a></li>
-                                                        <li><a href="/summary/2013">Summary</a></li>
-                                                        <li><a href="#contact">Contact</a></li>
+                                                        <li><a href="/rank/2013">Articles Ranking</a></li>
+                                                        <li><a href="/summary/2013">Articles Summary</a></li>
+                                                        <li><a href="/seoulpm">Seoulpm</a></li>
                                                 </ul>
                                         </div><!--/.nav-collapse -->
                                 </div>
@@ -73,7 +73,7 @@
                 <%= content %>
                 <hr>
                 <footer>
-                        <p>&copy; newbcode | seloulpm  2013</p>
+                        <p>&copy; 2013 newbcode | Seloulpm </p>
                 </footer>
 
                 </div><!-- /CONTAINER -->

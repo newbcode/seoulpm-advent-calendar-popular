@@ -143,6 +143,10 @@ get '/summary/:year' => sub {
 
 } => 'summary';
 
+get '/seoulpm' => sub {
+    my $self = shift;
+    
+} => 'seoulpm';
 
 app->start;
 
