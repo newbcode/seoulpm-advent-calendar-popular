@@ -1,7 +1,7 @@
 CREATE TABLE `adv_2011` (
   `id`          INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `author`      VARCHAR(20)      NOT NULL DEFAULT '',
-  `title`       VARCHAR(70)      NOT NULL,
+  `author`      VARCHAR(512)      NOT NULL DEFAULT '',
+  `title`       VARCHAR(512)      NOT NULL,
   `url`         TEXT             NOT NULL,
   `abst`        TEXT             NOT NULL,
   `likesum`     INT(2)           NOT NULL,
