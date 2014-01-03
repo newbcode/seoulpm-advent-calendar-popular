@@ -206,6 +206,15 @@ sub web_parser {
     if ( $year =~ /2013/ ) { $dom = Mojo::UserAgent->new->get($url)->res->dom->at('#cont'); }
 
     my $author = get_author($dom);
+    my $before_author = get_author($dom);
+
+    if ( $before_author =~ /(.*?)-/ ) {
+        $author = $1;
+    }
+    elsif ( $before_author =~ /(\w+\s+\w+)/ ) {
+        $author = $1;
+    }
+
     my $title  = get_title($dom);
     my $desc   = get_desc($dom);
     my @toc    = get_toc($dom);
