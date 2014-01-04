@@ -88,7 +88,7 @@ get '/advpop/:year' => sub {
             wdate   => $wdate,
         };
     }
-    $self->stash( articles => \%articles, input_year => $input_year );
+    $self->stash( articles => \%articles, input_year => $input_year);
 
 } => 'advpop';
 
