@@ -31,7 +31,7 @@ $sth->execute();
 my @row = $sth->fetchrow_array;
 
 if ( @row ){
-    print "No Data\n";
+    print "Exist row in DB...\n";
 }
 else {
     my @top_tens;
@@ -72,7 +72,8 @@ get '/advpop/:year' => sub {
     my $input_year = $self->param('year');
     
     my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM adv_$input_year });
-    $sth->execute();
+    if ($sth) { $sth->execute();}
+    else { print "Tempo row\n"; }
 
     my %articles;
     while ( my @row = $sth->fetchrow_array ) {
