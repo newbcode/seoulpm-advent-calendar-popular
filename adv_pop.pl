@@ -23,6 +23,7 @@ my $DBH = DBI->connect (
         RaiseError        => 1,
         AutoCommit        => 1,
         mysql_enable_utf8 => 1,
+        mysql_auto_reconnect => 1,
     },
 );
 
@@ -72,8 +73,7 @@ get '/advpop/:year' => sub {
     my $input_year = $self->param('year');
     
     my $sth = $DBH->prepare(qq{ SELECT id, author, title, url, likesum, wdate FROM adv_$input_year });
-    if ($sth) { $sth->execute();}
-    else { print "Tempo row\n"; }
+    $sth->execute();
 
     my %articles;
     while ( my @row = $sth->fetchrow_array ) {
