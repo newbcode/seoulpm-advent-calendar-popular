@@ -75,11 +75,16 @@
 
                 <%= content %>
                 <hr>
-                <footer>
-                        <p>&copy; 2013 newbcode | Seloulpm </p>
-                </footer>
+		<footer>
+		<p>&copy; 2013 newbcode | Seloulpm
+		<!-- hitwebcounter Code START -->
+		<a href="http://www.hitwebcounter.com/htmltutorial.php" target="_blank">
+		<img src="http://hitwebcounter.com/counter/counter.php?page=5242848&style=0007&nbdigits=5&type=page&initCount=0" title="stats for websites" Alt="stats for websites"   border="0" >
+		</a><br/>
+		</p>
+		</footer>
 
-                </div><!-- /CONTAINER -->
+		</div><!-- /CONTAINER -->
                 <!-- Le javascript
                 ================================================== -->
                 <!-- Placed at the end of the document so the pages load faster -->
